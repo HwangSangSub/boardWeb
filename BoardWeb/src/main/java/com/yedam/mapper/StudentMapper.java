@@ -20,4 +20,4 @@ public interface StudentMapper {
 //	// 학생 삭제
 //	int deleteStudent(StudentVO svo);
 
-}
+}// end interface

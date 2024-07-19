@@ -15,12 +15,12 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public List<StudentVO> studentList() {
 		return mapper.studentList();
-	}
+	}// end studentList
 
 	@Override
 	public StudentVO selectOne(String sno) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}// end selectOne
 
-}
+}// end class

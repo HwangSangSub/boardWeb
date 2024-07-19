@@ -46,11 +46,11 @@ public class StudentAddServ extends HttpServlet {
 
 		response.sendRedirect("SampleServlet");
 
-	}
+	}// end doGet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
-	}
+	}// end doPost
 
-}
+}// end class

@@ -7,10 +7,14 @@ public class AppTest {
 	public static void main(String[] args) {
 		
 		BoardService svc = new BoardServiceImpl();
+		SearchDTO search = new SearchDTO();
+		search.setSearchCondition("T");
+		search.setPage(1);
+		search.setKeyword("제목");
 		
 		// 전체 조회
 //		svc.boardList().forEach(brd -> System.out.println(brd));
-		svc.boardList().forEach(System.out::println); // 위의 명령문을 줄인것.
+		svc.boardList(search).forEach(System.out::println); // 위의 명령문을 줄인것.
 		System.out.println("- End -");
 		
 //		SqlSession sqlSession = DataSource.getInstance().openSession(true);

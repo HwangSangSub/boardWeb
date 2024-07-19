@@ -28,7 +28,7 @@ public class SampleServlet extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		System.out.println("init메소드 실행.");
-	}
+	}// end init
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,23 +45,23 @@ public class SampleServlet extends HttpServlet {
 			out.println("<li><a href='jsp/student.jsp?sno=" + svo.getStdNo() + "'>" + svo.getStdNo() + ", "
 					+ svo.getStdName() + "</a></li>");
 		}
-	}
+	}// end service
 
 	@Override
 	public void destroy() {
 		System.out.println("destroy메소드 실행.");
-	}
+	}// end destroy
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// 서블릿의 생명주기 (init()실행 => service()실행 => destory()실행) - 인생마감
 		// 개발자가 실행흐름주도 X => WebApplicationServer 주도 = 제어의역전
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+	}// end doGet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
-	}
+	}// end doPost
 
-}
+}// end class

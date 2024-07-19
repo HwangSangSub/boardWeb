@@ -1,18 +1,18 @@
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.yedam.vo.BoardVO"%>
-<%@page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+
 <%@ include file="../includes/header.jsp"%>
-<h3>게시판 상세보기(board.jsp)</h3>
+<h3>삭제화면(removeForm.jsp)</h3>
 <%
 BoardVO board = (BoardVO) request.getAttribute("board");
 %>
-<form action="removeBoard.do">
+<form action="deleteBoard.do">
 	<input type="hidden" name="bno" value="<%=board.getBoardNo()%>" />
 	<table class="table">
-		<%
+	<%
 	Date date = board.getWriteDate();
 	// SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -42,16 +42,10 @@ BoardVO board = (BoardVO) request.getAttribute("board");
 		</tr>
 		<tr>
 			<td colspan="4" align="center">
-				<button class="btn btn-primary" type="button">수정화면</button> 
-				<input class="btn btn-danger" type="submit" value="삭제화면">
+				<button class="btn btn-primary" type="button">수정</button> 
+				<input class="btn btn-danger" type="submit" value="삭제">
 			</td>
 		</tr>
 	</table>
 </form>
-<script>
-	// > : 바로 자식 , table button : 공백은 테이블의 자식 중 button을 찾는 것.
-	document.querySelector('form>table button').addEventListener('click', function(e){
-		location.href = 'modifyBoard.do?bno=<%=board.getBoardNo()%>';
-	});
-</script>
 <%@ include file="../includes/footer.jsp"%>

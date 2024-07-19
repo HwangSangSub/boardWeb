@@ -13,5 +13,6 @@ public class BoardFormControl implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("WEB-INF/jsp/boardForm.jsp").forward(req, resp);
-	}
-}
+	}// end exec
+	
+}// end class

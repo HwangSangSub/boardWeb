@@ -5,31 +5,86 @@
 <mapper namespace="com.yedam.mapper.BoardMapper">
 	<select id="selectList" resultType="com.yedam.vo.BoardVO">
 		SELECT board_no
-			, title
-			, content
-			, writer
-			, view_cnt
-			, write_date
+		, title
+		, content
+		, writer
+		, view_cnt
+		, write_date
 		FROM tbl_board
 		ORDER BY board_no
 	</select>
-	<select id="selectBoard" parameterType="int"
+	<select id="selectListPaging" parameterType="int"
+		resultType="com.yedam.vo.BoardVO">
+		SELECT b.*
+		FROM
+		(
+		SELECT rownum AS rn, a.*
+		FROM (
+		SELECT *
+		FROM tbl_board
+		WHERE
+		<choose>
+			<when test="searchCondition == 'T' .toString()">
+				title LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="searchCondition == 'W'.toString()">
+				writer LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="searchCondition == 'TW'.toString()">
+				title LIKE '%' || #{keyword} || '%' OR writer LIKE '%' || #{keyword} ||
+				'%'
+			</when>
+			<otherwise>1 = 1</otherwise>
+		</choose>
+		ORDER BY board_no DESC
+		) a
+		) b
+		WHERE b.rn> (#{page} -1 ) * 5
+		<![CDATA[
+		    AND b.rn <= (#{page} * 5)
+		]]>
+	</select>
+
+	<!-- 페이징 목록. -->
+	<select id="selectBoard"
+		parameterType="com.yedam.common.SearchDTO"
 		resultType="com.yedam.vo.BoardVO">
 		SELECT board_no
-			, title
-			, content
-			, writer
-			, view_cnt
-			, write_date
+		, title
+		, content
+		, writer
+		, view_cnt
+		, write_date
 		FROM tbl_board
 		WHERE board_no = #{boardNo}
+	</select>
+
+	<!-- 페이징 계산용 전체건수. -->
+	<select id="selectTotalCount"  parameterType="com.yedam.common.SearchDTO">
+		SELECT COUNT(1)
+		FROM tbl_board
+		WHERE
+		<choose>
+			<when test="searchCondition == 'T' .toString()">
+				title LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="searchCondition == 'W'.toString()">
+				writer LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="searchCondition == 'TW'.toString()">
+				title LIKE '%' || #{keyword} || '%' OR writer LIKE '%' || #{keyword} ||
+				'%'
+			</when>
+			<otherwise>1 = 1</otherwise>
+		</choose>
 	</select>
 
 	<!-- 매개 변수는 parameterType 받아짐 -->
 	<insert id="insertBoard" parameterType="com.yedam.vo.BoardVO">
 		INSERT INTO
 		tbl_board(board_no, title, content, writer)
-		VALUES (board_seq.NEXTVAL,#{title}, #{content}, #{writer})
+		VALUES
+		(board_seq.NEXTVAL,#{title}, #{content}, #{writer})
 	</insert>
 
 	<update id="updateBoard" parameterType="com.yedam.vo.BoardVO">

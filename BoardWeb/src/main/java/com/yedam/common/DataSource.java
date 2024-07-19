@@ -19,6 +19,6 @@ public class DataSource {
 		}
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		return sqlSessionFactory;
-	}
+	} // end getInstance
 
-}
+}// end class

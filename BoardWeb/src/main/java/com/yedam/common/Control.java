@@ -8,4 +8,4 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface Control {
 	void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException;
-}
+}// end interface
