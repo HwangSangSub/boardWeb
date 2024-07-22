@@ -3,25 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.BoardMapper">
-	<select id="selectList" resultType="com.yedam.vo.BoardVO">
-		SELECT board_no
-		, title
-		, content
-		, writer
-		, view_cnt
-		, write_date
-		FROM tbl_board
-		ORDER BY board_no
-	</select>
-	<select id="selectListPaging" parameterType="int"
-		resultType="com.yedam.vo.BoardVO">
-		SELECT b.*
-		FROM
-		(
-		SELECT rownum AS rn, a.*
-		FROM (
-		SELECT *
-		FROM tbl_board
+	<sql id ="selectCondition">
 		WHERE
 		<choose>
 			<when test="searchCondition == 'T' .toString()">
@@ -36,6 +18,28 @@
 			</when>
 			<otherwise>1 = 1</otherwise>
 		</choose>
+	</sql>
+	<select id="selectList" resultType="com.yedam.vo.BoardVO">
+		SELECT board_no
+		, title
+		, content
+		, writer
+		, view_cnt
+		, write_date
+		, image
+		FROM tbl_board
+		ORDER BY board_no
+	</select>
+	<select id="selectListPaging" parameterType="int"
+		resultType="com.yedam.vo.BoardVO">
+		SELECT b.*
+		FROM
+		(
+		SELECT rownum AS rn, a.*
+		FROM (
+		SELECT *
+		FROM tbl_board
+		<include refid="selectCondition"></include>
 		ORDER BY board_no DESC
 		) a
 		) b
@@ -55,6 +59,7 @@
 		, writer
 		, view_cnt
 		, write_date
+		, image
 		FROM tbl_board
 		WHERE board_no = #{boardNo}
 	</select>
@@ -63,28 +68,15 @@
 	<select id="selectTotalCount"  parameterType="com.yedam.common.SearchDTO">
 		SELECT COUNT(1)
 		FROM tbl_board
-		WHERE
-		<choose>
-			<when test="searchCondition == 'T' .toString()">
-				title LIKE '%' || #{keyword} || '%'
-			</when>
-			<when test="searchCondition == 'W'.toString()">
-				writer LIKE '%' || #{keyword} || '%'
-			</when>
-			<when test="searchCondition == 'TW'.toString()">
-				title LIKE '%' || #{keyword} || '%' OR writer LIKE '%' || #{keyword} ||
-				'%'
-			</when>
-			<otherwise>1 = 1</otherwise>
-		</choose>
+		<include refid="selectCondition"></include>
 	</select>
 
 	<!-- 매개 변수는 parameterType 받아짐 -->
 	<insert id="insertBoard" parameterType="com.yedam.vo.BoardVO">
 		INSERT INTO
-		tbl_board(board_no, title, content, writer)
+		tbl_board(board_no, title, content, writer, image)
 		VALUES
-		(board_seq.NEXTVAL,#{title}, #{content}, #{writer})
+		(board_seq.NEXTVAL, #{title}, #{content}, #{writer}, #{image})
 	</insert>
 
 	<update id="updateBoard" parameterType="com.yedam.vo.BoardVO">

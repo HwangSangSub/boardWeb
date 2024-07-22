@@ -24,7 +24,7 @@ public class BoardListControl implements Control {
 		// 파라미터가 없으면 null로 넘어오고 그러면 1페이지를 보여주고 아니면 넘어온 페이지를 넣어주겠다.
 		page = page == null ? "1" : page;
 		sc = sc == null ? "" : sc;
-		kw = kw == null ? "1" : kw;
+		kw = kw == null ? "" : kw;
 		
 		req.setAttribute("myName", "홍길동");
 		

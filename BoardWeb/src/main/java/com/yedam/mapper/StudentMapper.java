@@ -2,6 +2,8 @@ package com.yedam.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yedam.vo.StudentVO;
 
 public interface StudentMapper {
@@ -14,10 +16,8 @@ public interface StudentMapper {
 	// 학생 등록
 	int insertStudent(StudentVO svo);
 	
-//	// 학생 수정
-//	int updateStudent(StudentVO svo);
-//	
-//	// 학생 삭제
-//	int deleteStudent(StudentVO svo);
+	// 로그인체크
+	int selectMember(@Param("id") String id, @Param("pw") String pw);
+	
 
 }// end interface

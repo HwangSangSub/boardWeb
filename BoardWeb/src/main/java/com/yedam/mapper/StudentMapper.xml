@@ -13,6 +13,14 @@
 		resultType="com.yedam.vo.StudentVO">
 		SELECT * FROM tbl_student WHERE std_no = #{stdNo}
 	</select>
+	
+	
+	<select id="selectMember" resultType="int">
+		SELECT count(1)
+		FROM tbl_member
+		WHERE member_id = #{id}
+			AND member_pw = #{pw}
+	</select>
 
 	<!-- 매개 변수는 parameterType 받아짐 -->
 	<insert id="insertStudent"

@@ -50,5 +50,23 @@
 			<version>1.5.6</version>
 			<!--<scope>test</scope> test환경에서만 보고싶을 경우에 주석풀기-->
 		</dependency>
+		<!-- https://tomcat.apache.org/download-taglibs.cgi -->
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-spec</artifactId>
+			<version>1.2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-impl</artifactId>
+			<version>1.2.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.servlets/cos -->
+		<dependency>
+			<groupId>com.servlets</groupId>
+			<artifactId>cos</artifactId>
+			<version>05Nov2002</version>
+		</dependency>
+
 	</dependencies>
 </project>

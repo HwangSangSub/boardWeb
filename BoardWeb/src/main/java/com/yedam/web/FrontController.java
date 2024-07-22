@@ -11,10 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
+import com.yedam.control.ActionControl;
 import com.yedam.control.AddBoardControl;
 import com.yedam.control.BoardFormControl;
 import com.yedam.control.BoardListControl;
 import com.yedam.control.DeleteBoardControl;
+import com.yedam.control.LoginControl;
+import com.yedam.control.LoginFormControl;
+import com.yedam.control.LoginOutControl;
 import com.yedam.control.ModifyBoardControl;
 import com.yedam.control.RemoveBoardControl;
 import com.yedam.control.BoardControl;
@@ -51,8 +55,18 @@ public class FrontController extends HttpServlet {
 		map.put("/modifyBoard.do", new ModifyBoardControl()); // 화면
 		map.put("/updateBoard.do", new UpdateBoardControl()); // 기능
 		
+		//로그인
+		map.put("/loginForm.do", new LoginFormControl()); // 화면
+		map.put("/login.do", new LoginControl()); // 기능
+
+		// 로그아웃
+		map.put("/loginOut.do", new LoginOutControl()); // 기능
+		
 		// 학생목록
 		map.put("/stdList.do", new StudentListControl()); // 화면
+		
+		// jsp 태그연습
+		map.put("/action.do", new ActionControl()); // 화면
 	}// end init
 
 	@Override
@@ -62,11 +76,15 @@ public class FrontController extends HttpServlet {
 		String context = req.getContextPath(); // 프로젝트명
 		String path = uri.substring(context.length()); // "/boardList.do"
 
-//		System.out.println("uri : " + uri);
-//		System.out.println("context : " + context);
 		System.out.println("path : " + path);
+		System.out.println(map.get(path));
 
 		Control sub = map.get(path); // 컨트롤 인터페이스를 가지고 있고 반드시 가상메서드를 재선언해야함.
+        if (sub == null) {
+            System.err.println("No matching control found for path: " + path);
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "The requested path was not found on the server.");
+            return;
+        }
 		sub.exec(req, resp);
 	}// end service
 }// end class

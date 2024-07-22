@@ -16,12 +16,13 @@ public class DeleteBoardControl implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String bno = req.getParameter("bno");
+		String page = req.getParameter("page");
 		
 		BoardService svc = new BoardServiceImpl();
 		
 		if (svc.removeBoard(Integer.parseInt(bno))) {
 			// 삭제 성공 시 글 목록으로 이동
-			resp.sendRedirect("boardList.do");
+			resp.sendRedirect("boardList.do?page="+page);
 		} else {
 			// 삭제 실패 시 글 삭제화면으로 이동
 			resp.sendRedirect("boardRemove.do?bno=" + bno);
