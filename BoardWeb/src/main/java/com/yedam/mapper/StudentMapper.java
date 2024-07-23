@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.yedam.common.SearchDTO;
+import com.yedam.vo.MemberVO;
 import com.yedam.vo.StudentVO;
 
 public interface StudentMapper {
@@ -17,7 +19,19 @@ public interface StudentMapper {
 	int insertStudent(StudentVO svo);
 	
 	// 로그인체크
-	int selectMember(@Param("id") String id, @Param("pw") String pw);
+	MemberVO selectMember(@Param("id") String id, @Param("pw") String pw);
+
+	// 페이지 정보 -> 5건씩 출력
+	List<MemberVO> selectListPaging(SearchDTO search); 
+	// 접근권한 리턴타입 이름( 매개변수 );
+	// 접근권한 
+	// int String double....
+	// MemberVO List<MemberVO>
+	// 이름 니멋대로
+	// (매개변수) > 
+	
+	// 페이징 계산하기 위한 전체 건수.
+	int selectTotalCount(SearchDTO search);
 	
 
 }// end interface

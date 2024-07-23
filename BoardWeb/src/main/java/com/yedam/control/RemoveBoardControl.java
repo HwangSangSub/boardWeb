@@ -25,7 +25,7 @@ public class RemoveBoardControl implements Control {
 		req.setAttribute("page", page);
 
 
-		req.getRequestDispatcher("WEB-INF/jsp/removeForm.jsp").forward(req, resp);
+		req.getRequestDispatcher("board/removeForm.tiles").forward(req, resp);
 	}// end exec
 
 }// end class

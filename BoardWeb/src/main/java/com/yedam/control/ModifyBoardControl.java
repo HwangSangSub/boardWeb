@@ -22,7 +22,7 @@ public class ModifyBoardControl implements Control {
 		BoardVO brd = svc.getBoard(Integer.parseInt(bno));
 		req.setAttribute("board", brd);
 
-		req.getRequestDispatcher("WEB-INF/jsp/modifyForm.jsp").forward(req, resp);
+		req.getRequestDispatcher("board/modifyForm.tiles").forward(req, resp);
 	}// end exec
 
 }// end class

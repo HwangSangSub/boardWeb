@@ -13,20 +13,13 @@
 				writer LIKE '%' || #{keyword} || '%'
 			</when>
 			<when test="searchCondition == 'TW'.toString()">
-				title LIKE '%' || #{keyword} || '%' OR writer LIKE '%' || #{keyword} ||
-				'%'
+				title LIKE '%' || #{keyword} || '%' OR writer LIKE '%' || #{keyword} || '%'
 			</when>
 			<otherwise>1 = 1</otherwise>
 		</choose>
 	</sql>
 	<select id="selectList" resultType="com.yedam.vo.BoardVO">
-		SELECT board_no
-		, title
-		, content
-		, writer
-		, view_cnt
-		, write_date
-		, image
+		SELECT *
 		FROM tbl_board
 		ORDER BY board_no
 	</select>
@@ -43,7 +36,7 @@
 		ORDER BY board_no DESC
 		) a
 		) b
-		WHERE b.rn> (#{page} -1 ) * 5
+		WHERE b.rn > (#{page} -1 ) * 5
 		<![CDATA[
 		    AND b.rn <= (#{page} * 5)
 		]]>
@@ -53,13 +46,7 @@
 	<select id="selectBoard"
 		parameterType="com.yedam.common.SearchDTO"
 		resultType="com.yedam.vo.BoardVO">
-		SELECT board_no
-		, title
-		, content
-		, writer
-		, view_cnt
-		, write_date
-		, image
+		SELECT *
 		FROM tbl_board
 		WHERE board_no = #{boardNo}
 	</select>

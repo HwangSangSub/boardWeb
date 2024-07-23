@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
-<jsp:include page="../includes/header.jsp" />
 <h3>로그인화면(loginForm.jsp)</h3>
 <c:if test="${!empty msg}">
 	<p>${msg}</p>
@@ -22,4 +21,3 @@
 		</tr>
 	</table>
 </form>
-<jsp:include page="../includes/footer.jsp" />

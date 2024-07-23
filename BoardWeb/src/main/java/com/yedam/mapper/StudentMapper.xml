@@ -3,45 +3,85 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.StudentMapper">
-
-	<!-- select는 결과가 ResultSet 타입으로 나옴 -->
-	<select id="studentList" resultType="com.yedam.vo.StudentVO">
-		SELECT * FROM tbl_student
-		ORDER BY std_no
-	</select>
-	<select id="selectOne" parameterType="string"
-		resultType="com.yedam.vo.StudentVO">
-		SELECT * FROM tbl_student WHERE std_no = #{stdNo}
-	</select>
-	
-	
-	<select id="selectMember" resultType="int">
-		SELECT count(1)
+	<sql id ="selectCondition">
+		WHERE
+			responsibility <![CDATA[ <> 'Admin'	 ]]>  
+		<choose>
+			<when test="searchCondition == 'ID' .toString()">
+				AND member_id LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="searchCondition == 'NM'.toString()">
+				AND member_nm LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="searchCondition == 'IDNM'.toString()">
+				AND member_id LIKE '%' || #{keyword} || '%' OR member_nm LIKE '%' || #{keyword} || '%'
+			</when>
+		</choose>
+	</sql>
+	<select id="selectMember" resultType="com.yedam.vo.MemberVO">
+		SELECT *
 		FROM tbl_member
 		WHERE member_id = #{id}
 			AND member_pw = #{pw}
 	</select>
+	<select id="selectListPaging" parameterType="com.yedam.common.SearchDTO"
+		resultType="com.yedam.vo.MemberVO">
+		SELECT b.*
+		FROM
+		(
+		SELECT rownum AS rn, a.*
+		FROM (
+		SELECT *
+		FROM tbl_member
+		<include refid="selectCondition"></include>
+		) a
+		) b
+		WHERE b.rn> (#{page} -1 ) * 5
+		<![CDATA[
+		    AND b.rn <= (#{page} * 5)
+		]]>
+	</select>
+
+	<!-- 페이징 목록. -->
+	<select id="selectBoard"
+		parameterType="com.yedam.common.SearchDTO"
+		resultType="com.yedam.vo.MemberVO">
+		SELECT *
+		FROM tbl_member
+		WHERE member_id = #{memberId}
+	</select>
+
+	<!-- 페이징 계산용 전체건수. -->
+	<select id="selectTotalCount"  parameterType="com.yedam.common.SearchDTO">
+		SELECT COUNT(1)
+		FROM tbl_member
+		<include refid="selectCondition"></include>
+	</select>
 
 	<!-- 매개 변수는 parameterType 받아짐 -->
-	<insert id="insertStudent"
-		parameterType="com.yedam.vo.StudentVO">
-		INSERT INTO tbl_student(std_no, std_name, std_phone,
-		birth_date)
-		VALUES (#{stdNo}, #{stdName}, #{stdPhone}, #{birthDate})
+	<insert id="insertBoard" parameterType="com.yedam.vo.MemberVO">
+		INSERT INTO
+		tbl_board(board_no, title, content, writer, image)
+		VALUES
+		(board_seq.NEXTVAL, #{title}, #{content}, #{writer}, #{image})
 	</insert>
 
-	<update id="updateStudent"
-		parameterType="com.yedam.vo.StudentVO">
-		UPDATE tbl_student
-		SET std_phone = #{stdPhone}
-		WHERE
-		std_no = #{stdNo}
+	<update id="updateBoard" parameterType="com.yedam.vo.MemberVO">
+		UPDATE tbl_member
+		<set>
+			<if test="member_nm != null">
+				member_nm = #{memberNm}
+			</if>
+			<if test="content != null">
+				,member_pw = #{memberPw}
+			</if>
+		</set>
+		WHERE member_id = #{memberId}
 	</update>
 
-	<delete id="deleteStudent"
-		parameterType="com.yedam.vo.StudentVO">
-		DELETE FROM tbl_student
-		WHERE std_no = #{stdNo}
+	<delete id="deleteBoard" parameterType="com.yedam.vo.MemberVO">
+		DELETE FROM tbl_member
+		WHERE member_id = #{memberId}
 	</delete>
 
 </mapper>
