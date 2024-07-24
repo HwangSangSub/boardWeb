@@ -22,7 +22,8 @@ public interface StudentMapper {
 	MemberVO selectMember(@Param("id") String id, @Param("pw") String pw);
 
 	// 페이지 정보 -> 5건씩 출력
-	List<MemberVO> selectListPaging(SearchDTO search); 
+	List<MemberVO> selectList(@Param("res") String res, @Param("odr") String order); 
+//	List<MemberVO> selectListPaging(SearchDTO search); 
 	// 접근권한 리턴타입 이름( 매개변수 );
 	// 접근권한 
 	// int String double....

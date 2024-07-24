@@ -3,9 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.StudentMapper">
-	<sql id ="selectCondition">
+	<sql id="selectCondition">
 		WHERE
-			responsibility <![CDATA[ <> 'Admin'	 ]]>  
+		responsibility <![CDATA[ <> 'Admin'	 ]]>
 		<choose>
 			<when test="searchCondition == 'ID' .toString()">
 				AND member_id LIKE '%' || #{keyword} || '%'
@@ -14,7 +14,8 @@
 				AND member_nm LIKE '%' || #{keyword} || '%'
 			</when>
 			<when test="searchCondition == 'IDNM'.toString()">
-				AND member_id LIKE '%' || #{keyword} || '%' OR member_nm LIKE '%' || #{keyword} || '%'
+				AND member_id LIKE '%' || #{keyword} || '%' OR
+				member_nm LIKE '%' || #{keyword} || '%'
 			</when>
 		</choose>
 	</sql>
@@ -22,9 +23,25 @@
 		SELECT *
 		FROM tbl_member
 		WHERE member_id = #{id}
-			AND member_pw = #{pw}
+		AND member_pw = #{pw}
 	</select>
-	<select id="selectListPaging" parameterType="com.yedam.common.SearchDTO"
+
+	<select id="selectList" resultType="com.yedam.vo.MemberVO">
+		SELECT *
+		FROM tbl_member
+		WHERE responsibility = #{res}
+		<choose>
+			<when test="odr != null and odr != ''">
+				ORDER BY ${odr}
+			</when>
+			<otherwise>
+				ORDER BY member_nm
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="selectListPaging"
+		parameterType="com.yedam.common.SearchDTO"
 		resultType="com.yedam.vo.MemberVO">
 		SELECT b.*
 		FROM
@@ -43,8 +60,7 @@
 	</select>
 
 	<!-- 페이징 목록. -->
-	<select id="selectBoard"
-		parameterType="com.yedam.common.SearchDTO"
+	<select id="selectBoard" parameterType="String"
 		resultType="com.yedam.vo.MemberVO">
 		SELECT *
 		FROM tbl_member
@@ -52,7 +68,8 @@
 	</select>
 
 	<!-- 페이징 계산용 전체건수. -->
-	<select id="selectTotalCount"  parameterType="com.yedam.common.SearchDTO">
+	<select id="selectTotalCount"
+		parameterType="com.yedam.common.SearchDTO">
 		SELECT COUNT(1)
 		FROM tbl_member
 		<include refid="selectCondition"></include>

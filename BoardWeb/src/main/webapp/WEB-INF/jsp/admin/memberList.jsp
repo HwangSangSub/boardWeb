@@ -3,11 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <h3>회원목록...</h3>
 <!-- 검색기능 -->
+
+<!-- 
 <div>
 	<form action="">
 		<div class="row">
 			<div class="col-sm-4">
-				<!-- select 목록 -->
 				<select name="searchCondition" class="form-control">
 					<option value="">선택하세요.</option>
 					<option value="ID"
@@ -69,23 +70,39 @@
 		</table>
 	</div>
 </div>
+-->
+<ul class="nav nav-pills">
+  <li class="nav-item">
+
+    <a class="nav-link ${res eq 'User' ? 'active' : ''}" aria-current="page" href="memberList.do?res=User&order=${order }">사용자</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link ${res eq 'Admin' ? 'active' : ''}" href="memberList.do?res=Admin&order=${order }">관리자</a>
+  </li>
+</ul>
 <table class="table">
 	<thead>
 		<tr>
-			<th>아이디</th>
-			<th>이름</th>
+			<th>#</th>
+			<th><a href="memberList.do?res=${res }&order=member_id">아이디</a></th>
+			<th>비밀번호</th>
+			<th><a href="memberList.do?res=${res }&order=member_nm">이름</a></th>
+			<th>권한</th>
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="member" items="${memberList}">
+		<c:forEach var="member" items="${memberList}" varStatus="stat">
 			<tr>
+				<td>${stat.count}</td>
 				<td>${member.memberId}</td>
+				<td>${member.memberPw}</td>
 				<td>${member.memberNm}</td>
+				<td>${member.responsibility}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
-<!-- 페이진부분. -->
+<!-- 페이진부분. 
 <nav aria-label="Page navigation example">
 	<ul class="pagination justify-content-center">
 		<c:if test="${paging.prev}">
@@ -115,3 +132,4 @@
 		</c:if>
 	</ul>
 </nav>
+-->

@@ -40,6 +40,9 @@
     <put-attribute name="body" value="/WEB-INF/jsp/admin/{1}.jsp" /> <!--  {1} 정해지지 않은 값으로 (가변값) -->
   </definition>
   
+  <definition name="WILDCARD:*/*" extends="myapp.user"> <!-- WILDCARD:board/* : board 밑에 있는 아무거나 파일을 열명 아래로 간다 -->
+    <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" /> <!--  {1} 정해지지 않은 값으로 (가변값) -->
+  </definition>
 
 
 </tiles-definitions>

@@ -18,19 +18,22 @@
 <body>
 	<div class="d-flex" id="wrapper">
 		<!-- Sidebar-->
-		<tiles:insertAttribute name="menu" /> <!-- 메뉴영역 -->
+		<tiles:insertAttribute name="menu" />
+		<!-- 메뉴영역 -->
 		<!-- 메뉴부분 -->
 		<!-- Page content wrapper-->
 		<div id="page-content-wrapper">
 			<!-- Top navigation 토글부분-->
-			<tiles:insertAttribute name="header" /> <!-- 헤더영역 -->
+			<tiles:insertAttribute name="header" />
+			<!-- 헤더영역 -->
 			<!-- Page content-->
 			<div class="container-fluid">
-			<tiles:insertAttribute name="body" /> <!-- 바디영역 -->
-				
+				<tiles:insertAttribute name="body" />
+				<!-- 바디영역 -->
 			</div>
 		</div>
 	</div>
-	<tiles:insertAttribute name="footer" /> <!-- 푸터영역 -->
+	<tiles:insertAttribute name="footer" />
+	<!-- 푸터영역 -->
 </body>
 </html>
