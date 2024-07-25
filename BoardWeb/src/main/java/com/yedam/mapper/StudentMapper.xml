@@ -96,9 +96,23 @@
 		WHERE member_id = #{memberId}
 	</update>
 
-	<delete id="deleteBoard" parameterType="com.yedam.vo.MemberVO">
-		DELETE FROM tbl_member
-		WHERE member_id = #{memberId}
+	<delete id="deleteStudent" parameterType="String">
+		DELETE FROM tbl_student
+		WHERE std_no = #{sno}
 	</delete>
+	
+	<insert id="insertStudent" parameterType="com.yedam.vo.StudentVO">
+		INSERT INTO
+		tbl_student(std_no, std_name, std_phone, birth_date)
+		VALUES
+		(#{stdNo}, #{stdName}, #{stdPhone}, #{birthDate})
+	</insert>
+	
+
+	<select id="studentList" resultType="com.yedam.vo.StudentVO">
+		SELECT *
+		FROM tbl_student
+		ORDER BY std_no DESC
+	</select>
 
 </mapper>

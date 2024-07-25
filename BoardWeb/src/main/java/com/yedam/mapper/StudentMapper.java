@@ -34,5 +34,7 @@ public interface StudentMapper {
 	// 페이징 계산하기 위한 전체 건수.
 	int selectTotalCount(SearchDTO search);
 	
+	int deleteStudent(String sno);
+	
 
 }// end interface
