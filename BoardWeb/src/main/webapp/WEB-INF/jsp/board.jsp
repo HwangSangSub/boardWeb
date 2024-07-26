@@ -1,21 +1,26 @@
-<%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.yedam.vo.BoardVO"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<style>
+div.reply ul {
+	list-style: none;
+}
 
+div.reply span {
+	display: inline-block;
+}
+</style>
 <h3>게시판 상세보기(board.jsp)</h3>
 <form action="removeBoard.do">
-	<input type="hidden" name="bno" value="${board.boardNo}" />
-	<input type="hidden" name="page" value="${page}" />
+	<input type="hidden" name="bno" value="${board.boardNo}" /> <input
+		type="hidden" name="page" value="${page}" />
 	<table class="table">
 		<tr>
 			<th>글번호</th>
 			<td>${board.boardNo}</td>
 			<th>조회수</th>
-			<td>${board.viewCnt} 개</td>
+			<td>${board.viewCnt}개</td>
 		</tr>
 		<tr>
 			<th>제목</th>
@@ -31,8 +36,7 @@
 		</tr>
 		<tr>
 			<th>이미지</th>
-			<td colspan="3">
-				<c:choose>
+			<td colspan="3"><c:choose>
 					<c:when test="${empty board.image}">
 						<p>등록된 이미지 없음.</p>
 					</c:when>
@@ -47,24 +51,79 @@
 			<td colspan="3">${board.writeDate }</td>
 		</tr>
 		<tr>
-			<td colspan="4" align="center">
-	            	<c:choose>
-	            		<c:when test="${logid == board.writer}">
-							<button class="btn btn-primary" type="button">수정화면</button> 
-							<input class="btn btn-danger" type="submit" value="삭제화면">
-	            		</c:when>
-	            		<c:otherwise>
-							<button class="btn btn-primary"  disabled type="button">수정화면</button> 
-							<input class="btn btn-danger" disabled type="submit" value="삭제화면">
-	            		</c:otherwise>
-	            	</c:choose>
+			<td colspan="4" align="center"><c:choose>
+					<c:when test="${logid == board.writer}">
+						<button class="btn btn-primary" type="button">수정화면</button>
+						<input class="btn btn-danger" type="submit" value="삭제화면">
+					</c:when>
+					<c:otherwise>
+						<button class="btn btn-primary" disabled type="button">수정화면</button>
+						<input class="btn btn-danger" disabled type="submit" value="삭제화면">
+					</c:otherwise>
+				</c:choose>
 			</td>
 		</tr>
 	</table>
 </form>
+<!-- 댓글관련.. -->
+<div class="container reply">
+	<!-- 등록화면 -->
+	<div class="header">
+		<input class="col-sm-8" id="content" />
+		<button class="col-sm-3" id="addReply">댓글등록</button>
+	</div>
+	<!-- 목록화면 -->
+	<div class="content">
+		<ul id="replyList">
+			<li style="display: none;"><span class="col-sm-1">글번호</span> <span
+				class="col-sm-6">댓글내용</span> <span class="col-sm-2">작성자</span> <span
+				class="col-sm-2"><button>삭제</button></span></li>
+		</ul>
+	</div>
+	<!-- 댓글페이지 -->
+	<div>111111 ${pagingReply} ${ddd }</div>
+	<div class="footer">
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<c:if test="${pagingReply.prev}">
+					<li class="page-item"><a class="page-link"
+						href="board.do?page=${pagingReply.startPage-1}&bno=${bnoReply}"
+						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+					</a></li>
+				</c:if>
+				<c:forEach var="p" begin="${pagingReply.startPage}"
+					end="${pagingReply.endPage }">
+					<c:choose>
+						<c:when test="${pagingReply.page == p}">
+							<li class="page-item active"><span class="page-link">${p}</span></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a class="page-link"
+								href="board.do?page=${p}&bno=${bnoReply}"> ${p}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${pagingReply.next}">
+					<li class="page-item"><a class="page-link"
+						href="board.do?page=${pagingReply.endPage+1}&bno=${bnoReply}"
+						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+					</a></li>
+				</c:if>
+			</ul>
+		</nav>
+	</div>
+</div>
 <script>
+	const bno = "${board.boardNo}";
+	const replyer = "${logid}";
 	// > : 바로 자식 , table button : 공백은 테이블의 자식 중 button을 찾는 것.
-	document.querySelector('form>table button').addEventListener('click', function(e){
-		location.href = 'modifyBoard.do?bno=${board.boardNo}&page=${page}';
-	});
+	document
+			.querySelector('form>table button')
+			.addEventListener(
+					'click',
+					function(e) {
+						location.href = 'modifyBoard.do?bno=${board.boardNo}&page=${page}';
+					});
 </script>
+<script src="js/boardService.js"></script>
+<script src="js/board.js"></script>
