@@ -43,8 +43,7 @@ div.reply span {
 					<c:otherwise>
 						<img width="250px" src="images/${board.image}" />
 					</c:otherwise>
-				</c:choose>
-			</td>
+				</c:choose></td>
 		</tr>
 		<tr>
 			<th>작성일시</th>
@@ -60,8 +59,7 @@ div.reply span {
 						<button class="btn btn-primary" disabled type="button">수정화면</button>
 						<input class="btn btn-danger" disabled type="submit" value="삭제화면">
 					</c:otherwise>
-				</c:choose>
-			</td>
+				</c:choose></td>
 		</tr>
 	</table>
 </form>
@@ -81,34 +79,9 @@ div.reply span {
 		</ul>
 	</div>
 	<!-- 댓글페이지 -->
-	<div>111111 ${pagingReply} ${ddd }</div>
 	<div class="footer">
-		<nav aria-label="Page navigation example">
+		<nav aria-label="...">
 			<ul class="pagination justify-content-center">
-				<c:if test="${pagingReply.prev}">
-					<li class="page-item"><a class="page-link"
-						href="board.do?page=${pagingReply.startPage-1}&bno=${bnoReply}"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-				</c:if>
-				<c:forEach var="p" begin="${pagingReply.startPage}"
-					end="${pagingReply.endPage }">
-					<c:choose>
-						<c:when test="${pagingReply.page == p}">
-							<li class="page-item active"><span class="page-link">${p}</span></li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item"><a class="page-link"
-								href="board.do?page=${p}&bno=${bnoReply}"> ${p}</a></li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<c:if test="${pagingReply.next}">
-					<li class="page-item"><a class="page-link"
-						href="board.do?page=${pagingReply.endPage+1}&bno=${bnoReply}"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</c:if>
 			</ul>
 		</nav>
 	</div>

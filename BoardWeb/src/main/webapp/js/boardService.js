@@ -3,6 +3,7 @@
  */
 
 const svc = {
+	// 목록 조회
 	replyList(param = { bno, page }, loadCallback) {
 		const xhtp = new XMLHttpRequest();
 		xhtp.open('get', 'replyList.do?bno=' + param.bno + '&page=' + param.page);
@@ -17,10 +18,19 @@ const svc = {
 		xhtp.send();
 		xhtp.onload = loadCallback;
 	}, // end of addReply
+	// 삭제
 	removeReply(rno = 1, loadCallback) {
 		const xhtp = new XMLHttpRequest();
 		xhtp.open('get', 'removeReply.do?rno=' + rno);
 		xhtp.send();
 		xhtp.onload = loadCallback;
-	}
+	}, // end of removeReply
+	// 댓글 갯수
+	pagingCount(bno = 1, loadCallback){
+		const xhtp = new XMLHttpRequest();
+		xhtp.open('get', 'pagingCount.do?bno=' + bno);
+		xhtp.send();
+		xhtp.onload = loadCallback;
+		
+	} // end of pagingCoutn
 }// end of svc

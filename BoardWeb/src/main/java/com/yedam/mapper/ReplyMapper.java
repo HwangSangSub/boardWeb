@@ -8,7 +8,7 @@ import com.yedam.vo.ReplyVO;
 public interface ReplyMapper {
 	List<ReplyVO> selectList(int boardNo); // 댓글 조회
 	List<ReplyVO> selectListPaging(SearchDTO search); //원본글번호, 페이지번호.
-	int totalCount(int boardNo); // 댓글 전체 조회
+	int totalCount(int boardNo); // 댓글 갯수
 
 	int insertReply(ReplyVO rvo); // 댓글 등록
 
