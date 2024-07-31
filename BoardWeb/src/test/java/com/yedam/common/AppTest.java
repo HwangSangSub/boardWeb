@@ -1,22 +1,25 @@
 package com.yedam.common;
 
-import com.yedam.service.ReplyService;
-import com.yedam.service.ReplyServiceImpl;
-import com.yedam.vo.ReplyVO;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.yedam.service.MemberService;
+import com.yedam.service.MemberServiceImpl;
 
 public class AppTest {
 	public static void main(String[] args) {
-		ReplyService svc = new ReplyServiceImpl();
-		ReplyVO rvo = new ReplyVO();
-		rvo.setReplyContent("등록연습");
-		rvo.setReplyer("user03");
-		rvo.setBoardNo(9243);
-		
-		if(svc.addReply(rvo)) {
-			System.out.println("등록완료!");
+		MemberService svc = new MemberServiceImpl();
+		List<Map<String, Object>> list = svc.getCountByMember();
+
+		for (Map<String, Object> map : list) {
+			System.out.println("------------");
+			Set<String> keyset = map.keySet();
+			for (String key : keyset) {
+				System.out.println(key + ", " + map.get(key));
+			}
 		}
-		
-//		svc.replyList(9243).forEach(System.out::println);
+
 		System.out.println("- End -");
 	}// end main
 }// end class

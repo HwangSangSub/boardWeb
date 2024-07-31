@@ -18,8 +18,10 @@ import com.yedam.control.AddStudent;
 import com.yedam.control.BoardControl;
 import com.yedam.control.BoardFormControl;
 import com.yedam.control.BoardListControl;
+import com.yedam.control.CntByMemberControl;
 import com.yedam.control.DeleteBoardControl;
-import com.yedam.control.ImageDownLoad;
+import com.yedam.control.GoogleChartControl;
+import com.yedam.control.ImageDownLoadControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.LoginOutControl;
@@ -101,7 +103,13 @@ public class FrontController extends HttpServlet {
 		map.put("/pagingCount.do", new PagingCountControl()); // 기능
 		
 		// 이미지 다운로드
-		map.put("/imageDownload.do", new ImageDownLoad()); // 기능
+		map.put("/imageDownload.do", new ImageDownLoadControl()); // 기능
+		
+		// 작성자별 게시글 수
+		map.put("/countByMember.do", new CntByMemberControl()); // 기능
+		
+		// 차트 페이지
+		map.put("/googleChar.do", new GoogleChartControl()); // 화면
 		
 	}// end init
 
