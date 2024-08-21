@@ -97,6 +97,6 @@ div.reply span {
 					function(e) {
 						location.href = 'modifyBoard.do?bno=${board.boardNo}&page=${page}';
 					});
-</script>
-<script src="js/boardService.js"></script>
-<script src="js/board.js"></script>
+</script><script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="js/boardJquery.js"></script>
