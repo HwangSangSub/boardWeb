@@ -1,7 +1,9 @@
 package com.yedam.control;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.yedam.common.Control;
-import com.yedam.common.PageDTO;
 import com.yedam.common.SearchDTO;
 import com.yedam.service.ReplyService;
 import com.yedam.service.ReplyServiceImpl;
@@ -28,15 +29,18 @@ public class ReplyListControl implements Control {
 		page = page == null ? "1" : page;
 		
 		SearchDTO search = new SearchDTO();
-		search.setPage(Integer.parseInt(page));
+		//search.setPage(Integer.parseInt(page));
 		search.setBno(Integer.parseInt(bno));
 
 		ReplyService svc = new ReplyServiceImpl();
 		
-		List<ReplyVO> list = svc.replyList(search);
+		List<ReplyVO> list = svc.replyList(Integer.parseInt(bno));
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("data", list);
 
 		Gson gson = new GsonBuilder().create();
-		String json = gson.toJson(list); // 목록을 JSON으로 변환
+		String json = gson.toJson(map); // 목록을 JSON으로 변환
 
 		resp.getWriter().print(json);
 

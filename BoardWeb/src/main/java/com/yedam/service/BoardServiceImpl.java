@@ -8,6 +8,7 @@ import com.yedam.common.DataSource;
 import com.yedam.common.SearchDTO;
 import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
+import com.yedam.vo.CalendarVO;
 
 /*
  * 인터페이스(BoardService)를 구현하는 구현객체.
@@ -50,6 +51,26 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int totalCount(SearchDTO search) {
 		return mapper.selectTotalCount(search);
+	}
+
+	@Override
+	public List<CalendarVO> calendarList() {
+		return mapper.selectCalendarList();
+	}
+
+	@Override
+	public boolean addCalendar(CalendarVO calendar) {
+		return mapper.insertCalendar(calendar) == 1;
+	}
+
+	@Override
+	public boolean checkCalendar(CalendarVO calendar) {
+		return mapper.checkCalendar(calendar) == 1;
+	}
+
+	@Override
+	public boolean removeCalendar(CalendarVO calendar) {
+		return mapper.deleteCalendar(calendar) == 1;
 	}
 	
 }// end class

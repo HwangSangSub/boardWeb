@@ -15,8 +15,8 @@ public class ReplyServiceImpl implements ReplyService{
 
 	// 댓글 목록
 	@Override
-	public List<ReplyVO> replyList(SearchDTO search) {
-		return mapper.selectListPaging(search);
+	public List<ReplyVO> replyList(int boardNo) {
+		return mapper.selectListPaging(boardNo);
 	}
 
 	// 댓글 등록

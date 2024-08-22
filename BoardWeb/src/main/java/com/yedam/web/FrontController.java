@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.common.Control;
 import com.yedam.control.ActionControl;
 import com.yedam.control.AddBoardControl;
+import com.yedam.control.AddCalendarControl;
 import com.yedam.control.AddReplyControl;
 import com.yedam.control.AddStudent;
 import com.yedam.control.BoardControl;
@@ -20,6 +21,7 @@ import com.yedam.control.BoardFormControl;
 import com.yedam.control.BoardListControl;
 import com.yedam.control.CntByMemberControl;
 import com.yedam.control.DeleteBoardControl;
+import com.yedam.control.FullCalendarControl;
 import com.yedam.control.GoogleChartControl;
 import com.yedam.control.ImageDownLoadControl;
 import com.yedam.control.LoginControl;
@@ -29,6 +31,7 @@ import com.yedam.control.MemberListControl;
 import com.yedam.control.ModifyBoardControl;
 import com.yedam.control.PagingCountControl;
 import com.yedam.control.RemoveBoardControl;
+import com.yedam.control.RemoveCalendarControl;
 import com.yedam.control.RemoveReplyControl;
 import com.yedam.control.RemoveStudent;
 import com.yedam.control.ReplyListControl;
@@ -110,6 +113,13 @@ public class FrontController extends HttpServlet {
 		
 		// 차트 페이지
 		map.put("/googleChar.do", new GoogleChartControl()); // 화면
+		
+		// fullcalendar 연습
+		map.put("/fullcalendar.do", new FullCalendarControl()); // 기능
+		map.put("/addCalendar.do", new AddCalendarControl()); // 기능
+		map.put("/removeCalendar.do", new RemoveCalendarControl()); // 기능
+		
+		
 		
 	}// end init
 

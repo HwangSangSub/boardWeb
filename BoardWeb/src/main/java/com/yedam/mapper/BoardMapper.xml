@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.BoardMapper">
-	<sql id ="selectCondition">
+	<sql id="selectCondition">
 		WHERE
 		<choose>
 			<when test="searchCondition == 'T' .toString()">
@@ -13,7 +13,8 @@
 				writer LIKE '%' || #{keyword} || '%'
 			</when>
 			<when test="searchCondition == 'TW'.toString()">
-				title LIKE '%' || #{keyword} || '%' OR writer LIKE '%' || #{keyword} || '%'
+				title LIKE '%' || #{keyword} || '%' OR writer LIKE
+				'%' || #{keyword} || '%'
 			</when>
 			<otherwise>1 = 1</otherwise>
 		</choose>
@@ -21,7 +22,8 @@
 	<select id="selectList" resultType="com.yedam.vo.BoardVO">
 		SELECT *
 		FROM tbl_board
-		ORDER BY board_no
+		ORDER
+		BY board_no
 	</select>
 	<select id="selectListPaging" parameterType="int"
 		resultType="com.yedam.vo.BoardVO">
@@ -52,7 +54,8 @@
 	</select>
 
 	<!-- 페이징 계산용 전체건수. -->
-	<select id="selectTotalCount"  parameterType="com.yedam.common.SearchDTO">
+	<select id="selectTotalCount"
+		parameterType="com.yedam.common.SearchDTO">
 		SELECT COUNT(1)
 		FROM tbl_board
 		<include refid="selectCondition"></include>
@@ -83,5 +86,35 @@
 		DELETE FROM tbl_board
 		WHERE board_no = #{boardNo}
 	</delete>
-
+	
+	
+	<select id="selectCalendarList"
+		resultType="com.yedam.vo.CalendarVO">
+		SELECT title,
+		start_date AS "start",
+		end_date AS "end"
+		FROM tbl_schedule
+	</select>
+	<insert id="insertCalendar"
+		parameterType="com.yedam.vo.CalendarVO">
+		INSERT INTO
+		tbl_schedule(title, start_date, end_date)
+		VALUES
+		(#{title}, #{start}, #{end})
+	</insert>
+	<select id="checkCalendar"
+		parameterType="com.yedam.vo.CalendarVO" resultType="int">
+		SELECT COUNT(1)
+		FROM tbl_schedule
+		WHERE title = #{title}
+		AND start_date = #{start}
+		AND end_date = #{end}
+	</select>
+	<delete id="deleteCalendar"
+		parameterType="com.yedam.vo.CalendarVO">
+		DELETE FROM tbl_schedule
+		WHERE title = #{title}
+		AND start_date = #{start}
+		AND end_date = #{end}
+	</delete>
 </mapper>

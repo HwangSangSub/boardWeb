@@ -13,23 +13,17 @@
 		ORDER BY reply_no
 	</select>
 	
-	<select id="selectListPaging" parameterType="com.yedam.common.SearchDTO" resultType="com.yedam.vo.ReplyVO">
-		SELECT b.*
-		FROM (
-		    SELECT /*+ INDEX_DESC (r reply_pk) */ ROWNUM rn, r.*
-		    FROM tbl_reply r
-		    WHERE r.board_no = #{bno}
-		) b
-		WHERE b.rn > (#{page} -1 ) * 5
-		<![CDATA[
-		    AND b.rn <= (#{page} * 5)
-		]]>
+	<select id="selectListPaging" parameterType="int" resultType="com.yedam.vo.ReplyVO">
+		    SELECT *
+		    FROM tbl_reply
+		    WHERE board_no = #{boardNo}
+			ORDER BY reply_no DESC
 	</select>
 	
 	<select id="totalCount" parameterType="int" resultType="int">
 		    SELECT COUNT(1)
 		    FROM tbl_reply
-		    WHERE board_no = #{bno}
+		    WHERE board_no = #{boardNo}
 	</select>
 
 	<!-- insert, update, delete는 resultType 는 int타입으로 정해짐 -->

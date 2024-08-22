@@ -7,7 +7,7 @@ import com.yedam.vo.ReplyVO;
 
 public interface ReplyService {
 
-	List<ReplyVO> replyList(SearchDTO search); // 댓글목록
+	List<ReplyVO> replyList(int boardNo); // 댓글목록
 	
 	boolean addReply(ReplyVO rvo); // 댓글등록
 
